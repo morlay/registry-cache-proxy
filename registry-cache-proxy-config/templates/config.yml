@@ -1,0 +1,16 @@
+# https://docs.docker.com/registry/configuration/
+
+version: 0.1
+log:
+  level: debug
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+    maxthreads: 100
+http:
+  addr: 0.0.0.0:5000
+proxy:
+  remoteurl: {{ .Values.remoteurl }}{{ if .Values.username }}
+  username: {{ .Values.username }}{{ end }}{{ if .Values.password  }}
+  password: {{ .Values.password }}
+{{ end }}
