@@ -42,6 +42,16 @@ cr:
 cr.%:
 	CONTAINER_REGISTRY=$* $(MAKE) gen cr
 
+npm:
+	$(DOCKER) stop npm || true && $(DOCKER) rm npm || true
+	$(DOCKER) run -d \
+		--name=npm \
+		--restart=always \
+		-v=/tmp/data/npm:/verdaccio/storage/data \
+		--label=io.docksal.virtual-host=npm.$(BASE_HOST) \
+		--label=io.docksal.virtual-port=4873 \
+		verdaccio/verdaccio:4
+
 vhost:
 	$(DOCKER) stop vhost || true && $(DOCKER) rm vhost || true
 	$(DOCKER) run -d \
