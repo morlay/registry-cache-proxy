@@ -47,7 +47,6 @@ npm:
 	$(DOCKER) run -d \
 		--name=npm \
 		--restart=always \
-		-v=/tmp/data/npm:/verdaccio/storage/data \
 		--label=io.docksal.virtual-host=npm.$(BASE_HOST) \
 		--label=io.docksal.virtual-port=4873 \
 		verdaccio/verdaccio:4
