@@ -1,0 +1,8 @@
+apiVersion: v2
+name: npm
+version: 0.0.0
+kubeVersion: "^1.16.0-0"
+dependencies:
+  - name: verdaccio
+    version: ^0.16.3
+    repository: https://charts.verdaccio.org/

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-{{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  minReadySeconds: 10
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: registry-{{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: registry-{{ .Release.Name }}
+    spec:
+      containers:
+        - name: registry
+          image: registry:2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /etc/docker/registry/
+              name: conf
+      volumes:
+        - configMap:
+            name: registry-{{ .Release.Name }}-config
+          name: conf

@@ -1,0 +1,6 @@
+dependencies:
+- name: verdaccio
+  repository: https://charts.verdaccio.org/
+  version: 0.16.3
+digest: sha256:4f47d21b312040a9cd0e356ea8914b33f7f8691689781caf01844c7e7c43f736
+generated: "2020-12-16T11:43:19.460475+08:00"

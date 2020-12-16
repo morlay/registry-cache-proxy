@@ -1,0 +1,36 @@
+verdaccio:
+  ingress:
+    enabled: true
+    hosts:
+      - npm
+  persistence:
+    enabled: false
+  service:
+    name: http-npm
+  image:
+    tag: 4
+    repository: docker.io/morlay/verdaccio
+  configMap: |
+    storage: /verdaccio/storage/data
+    web:
+      enable: true
+    auth:
+      htpasswd:
+        file: /verdaccio/storage/htpasswd
+    uplinks:
+      npmjs:
+        url: https://registry.npmjs.org/
+    packages:
+      '@*/*':
+        access: $all
+        publish: $authenticated
+        proxy: npmjs
+      '**':
+        access: $all
+        publish: $authenticated
+        proxy: npmjs
+    middlewares:
+      audit:
+        enabled: true
+    logs:
+      - {type: stdout, format: pretty, level: http}
