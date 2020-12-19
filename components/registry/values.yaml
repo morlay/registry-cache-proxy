@@ -1,4 +1,5 @@
-baseHost: x.io
+hosts:
+  - cr.x.io
 remoteurl: https://registry-1.docker.io
 username:
 password:

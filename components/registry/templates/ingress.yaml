@@ -5,13 +5,16 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   rules:
-    - host: {{ .Release.Name }}.{{ .Values.baseHost }}
+{{ $serivceName := printf "%s-%s" "registry" .Release.Name }}
+{{ range $host :=.Values.hosts }}
+    - host: {{ $host }}
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: registry-{{ .Release.Name }}
+                name: {{ $serivceName }}
                 port:
                   number: 5000
+{{ end }}
